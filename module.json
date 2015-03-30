@@ -1,0 +1,8 @@
+{
+    "name": "TestTheme",
+    "slug": "test-theme",
+    "version": "1.0",
+    "description": "This is the description for the TestTheme module.",
+    "type": "theme",
+    "enabled": true
+}
