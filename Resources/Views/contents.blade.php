@@ -22,7 +22,13 @@
         {{ trans('test-theme::content.on') }} {{ $content->created_at->toDayDateTimeString() }}
     </p>
     <hr>
+
+    @if($content->content_image && $content->content_image > 0)
+    <img class="img-responsive" src="{{ $content->contentImage->path }}" width="900" height="300">
+    @else
     <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+    @endif
+
     <hr>
     <p>{!! $content->data['description'] !!}</p>
     <a class="btn btn-primary" href="{{ url('/test-theme/content', [$content->id]) }}">

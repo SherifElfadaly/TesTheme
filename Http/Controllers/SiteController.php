@@ -3,6 +3,7 @@
 use App\Modules\TestTheme\Http\Controllers\BaseController;
 use \ContentRepository;
 use \AclRepository;
+use \GalleryRepository;
 
 use Illuminate\Http\Request;
 
@@ -20,8 +21,9 @@ class SiteController extends BaseController {
 
 	public function getContent($id)
 	{
-		$content     = ContentRepository::getContentWithData($id, \Lang::locale());
-		$permissions = array();
+		$content               = ContentRepository::getContentWithData($id, \Lang::locale());
+		$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		$permissions           = array();
 
 		if(\Auth::check())
 		{
@@ -36,6 +38,11 @@ class SiteController extends BaseController {
 	public function getContents()
 	{
 		$contents = ContentRepository::getAllContentsWithData(\Lang::locale());
+
+		$contents->each(function($content){
+			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		});
+
 		$contents->setPath(url('test-theme/contents'));
 
 		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : trans('test-theme::content.Contents');
@@ -46,6 +53,11 @@ class SiteController extends BaseController {
 	public function getCategory($id)
 	{
 		$contents = ContentRepository::getSectionContentsWithData($id, \Lang::locale());
+
+		$contents->each(function($content){
+			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		});
+
 		$contents->setPath(url("test-theme/category/$id"));
 
 		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
@@ -57,6 +69,11 @@ class SiteController extends BaseController {
 	public function getTag($id)
 	{
 		$contents = ContentRepository::getTagContentsWithData($id, \Lang::locale());
+
+		$contents->each(function($content){
+			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		});
+
 		$contents->setPath(url("test-theme/category/$id"));
 
 		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
@@ -70,6 +87,11 @@ class SiteController extends BaseController {
 		$query    = $query ?: $request->get('query');
 
 		$contents = ContentRepository::search($query);
+		
+		$contents->each(function($content){
+			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		});
+
 		$contents->setPath(url("/test-theme/search/$query"));
 
 		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
