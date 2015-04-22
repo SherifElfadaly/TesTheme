@@ -3,6 +3,7 @@
     "slug": "test-theme",
     "version": "1.0",
     "description": "This is the description for the TestTheme module.",
+    "repo_link": "https:\/\/github.com\/SherifElfadaly\/TesTheme.git",
     "type": "theme",
     "enabled": true
 }
