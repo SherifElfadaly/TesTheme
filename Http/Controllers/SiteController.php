@@ -1,17 +1,21 @@
 <?php namespace App\Modules\TestTheme\Http\Controllers;
 
-use App\Modules\TestTheme\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use \ContentRepository;
 use \AclRepository;
 use \GalleryRepository;
+use \CommentRepository;
 
 use Illuminate\Http\Request;
 
-class SiteController extends BaseController {
+class SiteController extends Controller {
 
 	public function __construct()
 	{
-		parent::__construct();
+		if(\Auth::check())
+		{
+			\Auth::user()->groups = AclRepository::getUser(\Auth::user()->id)->groups;
+		}
 	}
 
 	public function getIndex()
@@ -23,6 +27,7 @@ class SiteController extends BaseController {
 	{
 		$content               = ContentRepository::getContentWithData($id, \Lang::locale());
 		$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+		$commentTemplate       = CommentRepository::getCommentTemplate('content', $id);
 		$permissions           = array();
 
 		if(\Auth::check())
@@ -32,7 +37,7 @@ class SiteController extends BaseController {
 
 		//if( ! in_array('show', $permissions)) abort(403, 'Unauthorized');
 
-		return view('test-theme::content' ,compact('content', 'permissions'));
+		return view('test-theme::content' ,compact('content', 'permissions', 'commentTemplate'));
 	}
 
 	public function getContents()

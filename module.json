@@ -1,7 +1,7 @@
 {
     "name": "TestTheme",
     "slug": "test-theme",
-    "version": "1.0",
+    "version": "1.1",
     "description": "This is the description for the TestTheme module.",
     "repo_link": "https:\/\/github.com\/SherifElfadaly\/TesTheme.git",
     "type": "theme",

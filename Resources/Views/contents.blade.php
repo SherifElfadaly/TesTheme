@@ -22,8 +22,8 @@
         {{ trans('test-theme::content.on') }} {{ $content->created_at->toDayDateTimeString() }}
     </p>
     <hr>
-
-    @if($content->content_image && $content->content_image > 0)
+    
+    @if($content->contentImage)
     <img class="img-responsive" src="{{ $content->contentImage->path }}" width="900" height="300">
     @else
     <img class="img-responsive" src="http://placehold.it/900x300" alt="">
