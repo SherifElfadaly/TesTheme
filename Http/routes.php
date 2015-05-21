@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'test-theme'], function() {
+Route::group(['prefix' => ''], function() {
 	Route::controllers([
 		'/' => 'SiteController',
 		]);

@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\TestTheme\Database\Seeds;
+namespace App\Modules\Testtheme\Database\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ class TestThemeDatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('App\Modules\TestTheme\Database\Seeds\FoobarTableSeeder');
+		// $this->call('App\Modules\Testtheme\Database\Seeds\FoobarTableSeeder');
 	}
 
 }

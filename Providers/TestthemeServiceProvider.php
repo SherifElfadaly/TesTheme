@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\TestTheme\Providers;
+namespace App\Modules\Testtheme\Providers;
 
 use App;
 use Config;
@@ -7,10 +7,10 @@ use Lang;
 use View;
 use Illuminate\Support\ServiceProvider;
 
-class TestThemeServiceProvider extends ServiceProvider
+class TestthemeServiceProvider extends ServiceProvider
 {
 	/**
-	 * Register the TestTheme module service provider.
+	 * Register the Testtheme module service provider.
 	 *
 	 * @return void
 	 */
@@ -19,20 +19,20 @@ class TestThemeServiceProvider extends ServiceProvider
 		// This service provider is a convenient place to register your modules
 		// services in the IoC container. If you wish, you may make additional
 		// methods or service providers to keep the code more focused and granular.
-		App::register('App\Modules\TestTheme\Providers\RouteServiceProvider');
+		App::register('App\Modules\Testtheme\Providers\RouteServiceProvider');
 
 		$this->registerNamespaces();
 	}
 
 	/**
-	 * Register the TestTheme module resource namespaces.
+	 * Register the Testtheme module resource namespaces.
 	 *
 	 * @return void
 	 */
 	protected function registerNamespaces()
 	{
-		Lang::addNamespace('test-theme', __DIR__.'/../Resources/Lang/');
+		Lang::addNamespace('testtheme', __DIR__.'/../Resources/Lang/');
 
-		View::addNamespace('test-theme', __DIR__.'/../Resources/Views/');
+		View::addNamespace('testtheme', __DIR__.'/../Resources/Views/');
 	}
 }

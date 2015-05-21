@@ -1,108 +1,89 @@
-<?php namespace App\Modules\TestTheme\Http\Controllers;
+<?php namespace App\Modules\Testtheme\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use \ContentRepository;
-use \AclRepository;
-use \GalleryRepository;
-use \CommentRepository;
 
 use Illuminate\Http\Request;
 
 class SiteController extends Controller {
 
-	public function __construct()
-	{
-		if(\Auth::check())
-		{
-			\Auth::user()->groups = AclRepository::getUser(\Auth::user()->id)->groups;
-		}
-	}
-
+	
 	public function getIndex()
 	{
-		return redirect('/test-theme/contents');
+		return redirect('contents');
 	}
 
 	public function getContent($id)
 	{
-		$content               = ContentRepository::getContentWithData($id, \Lang::locale());
-		$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
-		$commentTemplate       = CommentRepository::getCommentTemplate('content', $id);
-		$permissions           = array();
+		$content               = \CMS::contentItems()->getContent($id, \Lang::locale());
+		$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');
+		$commentTemplate       = \cms::comments()->getCommentTemplate('content', $id, 1);
 
-		if(\Auth::check())
-		{
-			$permissions = AclRepository::getUserItemPermissions('content', $id, \Auth::user());
-		}
-
-		//if( ! in_array('show', $permissions)) abort(403, 'Unauthorized');
-
-		return view('test-theme::content' ,compact('content', 'permissions', 'commentTemplate'));
+		return view('testtheme::content' ,compact('content', 'permissions', 'commentTemplate'));
 	}
 
 	public function getContents()
 	{
-		$contents = ContentRepository::getAllContentsWithData(\Lang::locale());
+		$contents = \CMS::contentItems()->getAllContents('article', \Lang::locale());
 
 		$contents->each(function($content){
-			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+			$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');
 		});
 
-		$contents->setPath(url('test-theme/contents'));
+		$contents->setPath(url('contents'));
 
-		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : trans('test-theme::content.Contents');
+		$title    = $contents->isEmpty() ? trans('testtheme::content.notfound') : trans('testtheme::content.Contents');
 
-		return view('test-theme::contents' ,compact('contents', 'title'));
+		return view('testtheme::contents' ,compact('contents', 'title'));
 	}
 
 	public function getCategory($id)
 	{
-		$contents = ContentRepository::getSectionContentsWithData($id, \Lang::locale());
+		$contents = \CMS::sections()->getSectionContents($id, \Lang::locale());
 
 		$contents->each(function($content){
-			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+			$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');
 		});
 
-		$contents->setPath(url("test-theme/category/$id"));
+		$contents->setPath(url("category/$id"));
 
-		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
-		$contents->first()->contentSections->first()->section_name . ' ' . trans('test-theme::content.Contents');
+		$title    = $contents->isEmpty() ? trans('testtheme::content.notfound') : 
+		$contents[0]->sections->first()->section_name . ' ' . trans('testtheme::content.Contents');
 
-		return view('test-theme::contents' ,compact('contents', 'title'));
+		return view('testtheme::contents' ,compact('contents', 'title'));
 	}
 
 	public function getTag($id)
 	{
-		$contents = ContentRepository::getTagContentsWithData($id, \Lang::locale());
+		$contents = \CMS::tags()->getTagContents($id, \Lang::locale());
 
 		$contents->each(function($content){
-			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+			$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');
 		});
 
-		$contents->setPath(url("test-theme/category/$id"));
+		$contents->setPath(url("category/$id"));
 
-		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
-		$contents->first()->contentSections->first()->section_name . ' ' . trans('test-theme::content.Contents');
+		$title    = $contents->isEmpty() ? trans('testtheme::content.notfound') : 
+		$contents[0]->sections->first()->section_name . ' ' . trans('testtheme::content.Contents');
 
-		return view('test-theme::contents' ,compact('contents', 'title'));
+		return view('testtheme::contents' ,compact('contents', 'title'));
 	}
 
 	public function getSearch(Request $request, $query = false)
 	{
 		$query    = $query ?: $request->get('query');
 
-		$contents = ContentRepository::search($query);
+		$contents = \CMS::contentItems()->search($query, \Lang::locale());
 		
 		$contents->each(function($content){
-			$content->contentImage = GalleryRepository::getImageThumbnail($content->content_image, '900*300');
+			$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');
 		});
 
-		$contents->setPath(url("/test-theme/search/$query"));
+		$contents->setPath(url("search/$query"));
 
-		$title    = $contents->isEmpty() ? trans('test-theme::content.notfound') : 
-		trans('test-theme::content.search') . ' : ' . $query;
+		$title    = $contents->isEmpty() ? trans('testtheme::content.notfound') : 
+		trans('testtheme::content.search') . ' : ' . $query;
 
-		return view('test-theme::contents' ,compact('contents', 'title'));
+		return view('testtheme::contents' ,compact('contents', 'title'));
 	}
 
 	public function getLanguage($key)

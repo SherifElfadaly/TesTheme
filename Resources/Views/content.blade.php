@@ -1,5 +1,4 @@
-@extends('test-theme::master')
-
+@extends('testtheme::master')
 @section('content')
 
 
@@ -10,8 +9,8 @@
 
     <!-- Author -->
     <p class="lead">
-     {{ trans('test-theme::content.by') }} 
-     <a href="{{ url('/test-theme/user', [$content->user->id]) }}">
+     {{ trans('testtheme::content.by') }} 
+     <a href="{{ url('user', [$content->user->id]) }}">
          {{ $content->user->name }}
      </a>
  </p>
@@ -19,10 +18,10 @@
  <hr>
 
  <p class="lead">
-    {{ trans('test-theme::content.tags') }} 
-    @foreach($content->contentTags as $tag)
-    <a href="{{ url('/test-theme/tag', [$tag->id]) }}">
-      <span class="label label-default">{{ $tag->tag_content }}</span>
+    {{ trans('testtheme::content.tags') }} 
+    @foreach($content->tags as $tag)
+    <a href="{{ url('tag', [$tag->id]) }}">
+      <span class="label label-default">{{ $tag->tag_name }}</span>
     </a>
   @endforeach
 </p>
@@ -32,7 +31,7 @@
 <!-- Date/Time -->
 <p>
  <span class="glyphicon glyphicon-time"></span> 
- {{ trans('test-theme::content.on') }} {{ $content->created_at->toDayDateTimeString() }}
+ {{ trans('testtheme::content.on') }} {{ $content->created_at->toDayDateTimeString() }}
 </p>
 
 <hr>

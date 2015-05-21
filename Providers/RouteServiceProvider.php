@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\TestTheme\Providers;
+namespace App\Modules\Testtheme\Providers;
 
 use Caffeinated\Modules\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'App\Modules\TestTheme\Http\Controllers';
+	protected $namespace = 'App\Modules\Testtheme\Http\Controllers';
 
 	/**
 	 * Define your module's route model bindings, pattern filters, etc.
@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
 	{
 		$router->group(['namespace' => $this->namespace], function($router)
 		{
-			require (config('modules.path').'/TestTheme/Http/routes.php');
+			require (config('modules.path').'/Testtheme/Http/routes.php');
 		});
 	}
 }
