@@ -36,50 +36,8 @@
 
     <body>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ url('/') }}">{{ trans('testtheme::master.Home') }}</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                   <!--  <ul class="nav navbar-nav">
-                       <li>
-                           <a href="#">About</a>
-                       </li>
-                       <li>
-                           <a href="#">Services</a>
-                       </li>
-                       <li>
-                           <a href="#">Contact</a>
-                       </li>
-                   </ul> -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 
-                                {{ trans('testtheme::master.Language') }} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                @foreach($languages as $language)
-                                <li><a href="{{ url('language', $language->key) }}">{{ $language->title }}</a></li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
-
+       {!! \CMS::menus()->renderMenu('main_menu', \Lang::locale(), 'templates.menus.mainmenu')  !!}
+        
         <!-- Page Content -->
         <div class="container">
 
@@ -172,21 +130,21 @@
                                     <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
                                         {{ trans('testtheme::master.login') }}
                                     </button> {{ trans('testtheme::master.or') }} 
-                                     <a href="{{ url('/Acl/register') }}">{{ trans('testtheme::master.register') }}</a>
+                                     <a href="{{ url('admin/Acl/register') }}">{{ trans('testtheme::master.register') }}</a>
                                 </div>
                             </div>
 
                              <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href="{{ url('/Acl/password/email') }}">{{ trans('testtheme::master.forgot') }}</a>
+                                    <a href="{{ url('admin/Acl/password/email') }}">{{ trans('testtheme::master.forgot') }}</a>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href="{{ url('Acl/social/facebook') }}"><i class="fa fa-facebook-square fa-2x"></i></a>
-                                    <a href="{{ url('Acl/social/twitter') }}"><i class="fa fa-twitter-square fa-2x"></i></a>
-                                    <a href="{{ url('Acl/social/google') }}"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                                    <a href="{{ url('admin/Acl/social/facebook') }}"><i class="fa fa-facebook-square fa-2x"></i></a>
+                                    <a href="{{ url('admin/Acl/social/twitter') }}"><i class="fa fa-twitter-square fa-2x"></i></a>
+                                    <a href="{{ url('admin/Acl/social/google') }}"><i class="fa fa-google-plus-square fa-2x"></i></a>
                                 </div>
                             </div>
                         </form>
@@ -196,7 +154,8 @@
                     <a href="{{ url('admin/Acl/logout') }}">{{ trans('testtheme::master.logout') }}</a>
                     @endif
                 </div>
-
+                
+                {!! \CMS::widgets()->renderWidget('about', \Lang::locale()) !!}
             </div>
 
         </div>

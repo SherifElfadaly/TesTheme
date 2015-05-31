@@ -23,7 +23,7 @@ class SiteController extends Controller {
 
 	public function getContents()
 	{
-		$contents = \CMS::contentItems()->getAllContents('article', \Lang::locale());
+		$contents = \CMS::contentItems()->getAllContents('Articles', \Lang::locale());
 
 		$contents->each(function($content){
 			$content->contentImage = \cms::galleries()->getImageThumbnail($content->content_image, '900*300');

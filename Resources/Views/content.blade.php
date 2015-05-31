@@ -2,17 +2,17 @@
 @section('content')
 
 
-    <!-- Blog Post -->
+<!-- Blog Post -->
 
-    <!-- Title -->
-    <h1>{!! $content->data['title'] !!}</h1>
+<!-- Title -->
+<h1>{!! $content->data['title'] !!}</h1>
 
-    <!-- Author -->
-    <p class="lead">
-     {{ trans('testtheme::content.by') }} 
-     <a href="{{ url('user', [$content->user->id]) }}">
-         {{ $content->user->name }}
-     </a>
+<!-- Author -->
+<p class="lead">
+ {{ trans('testtheme::content.by') }} 
+ <a href="{{ url('user', [$content->user->id]) }}">
+     {{ $content->user->name }}
+ </a>
  </p>
 
  <hr>
