@@ -36,8 +36,9 @@
 
     <body>
 
-       {!! \CMS::menus()->renderMenu('main_menu', \Lang::locale(), 'templates.menus.mainmenu')  !!}
+        {!! \CMS::menus()->renderMenu('main_menu', \Lang::locale(), 'templates.menus.mainmenu')  !!}
         
+        {!! \CMS::sliders()->renderSlider('news', \Lang::locale()) !!}
         <!-- Page Content -->
         <div class="container">
 
